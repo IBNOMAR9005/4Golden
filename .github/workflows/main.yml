@@ -1,0 +1,44 @@
+name: Build telegram-bot-api
+
+# شغّله يدوي: تاب Actions ← Build telegram-bot-api ← Run workflow (بياخد ~15-25 دقيقة، مرة واحدة بس).
+# الناتج بيترفع في Releases بتاج tba-latest والـ notebook بينزّله من هناك.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04      # نفس نظام Colab الحالي (Ubuntu 24.04) عشان المكتبات تتوافق
+    timeout-minutes: 90
+    steps:
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make git zlib1g-dev libssl-dev gperf cmake g++
+
+      - name: Clone telegram-bot-api (with tdlib submodule)
+        run: git clone --recursive --depth 1 https://github.com/tdlib/telegram-bot-api.git tba
+
+      - name: Build
+        run: |
+          cd tba
+          mkdir build && cd build
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_EXE_LINKER_FLAGS="-static-libstdc++ -static-libgcc" ..
+          cmake --build . --target telegram-bot-api -j"$(nproc)"
+          strip telegram-bot-api
+          ./telegram-bot-api --version
+          ls -lh telegram-bot-api
+
+      - name: Publish to Releases (tag tba-latest)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp tba/build/telegram-bot-api ./telegram-bot-api
+          gh release delete tba-latest --cleanup-tag --yes --repo "$GITHUB_REPOSITORY" || true
+          gh release create tba-latest ./telegram-bot-api \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "telegram-bot-api (prebuilt)" \
+            --notes "Prebuilt telegram-bot-api for Colab (Ubuntu 24.04, x86_64). Built $(date -u +%F)."
