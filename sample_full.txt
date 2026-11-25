@@ -1,0 +1,167 @@
+@@PLAN_START
+@@LECTURE | number=7 | title=Nephrotic Syndrome | doctor=د. أحمد سالم | course=باطنة - كلى | type=disease | level=سنة 4 | goal=امتحان كلية
+@@ABOUT | المحاضرة بتشرح متلازمة النيفروتك (Nephrotic Syndrome): يعني إيه، ليه بتحصل، وإزاي نشخّصها ونعالجها. السؤال المحوري: ليه المريض بيفقد بروتين كتير في البول ويتورّم؟
+@@LOGIC | قسمنا المحاضرة لمحورين: الأول للأساس (التعريف والآلية والأسباب) عشان الطالب يفهم قبل ما يحفظ، والتاني للتشخيص والعلاج والمضاعفات عشان يطبّق.
+@@DICT | نيفروتك ← Nephrotic
+@@DICT | البيومين ← Albumin
+@@DICT | بروتينيوريا → Proteinuria
+@@AXIS_PLAN | id=1 | title=الأساس والآلية | en=Basics and Mechanism | kind=basic | src=L1-L30 | why=عشان نفهم الأعراض من أصلها | topics=3 | cases=1
+@@AXIS_PLAN | id=2 | title=التشخيص والعلاج | en=Diagnosis and Management | kind=management | src=L31-L60 | why=عشان نعرف نتصرف مع المريض | topics=3 | cases=1
+@@TOPIC_PLAN | axis=1 | id=1 | title=تعريف النيفروتك | en=Definition | src=L1-L10
+@@TOPIC_PLAN | axis=1 | id=2 | title=ليه التورّم بيحصل | en=Edema Mechanism | src=L11-L20
+@@TOPIC_PLAN | axis=1 | id=3 | title=الأسباب والتصنيف | en=Causes | src=L21-L30
+@@TOPIC_PLAN | axis=2 | id=4 | title=التشخيص | en=Diagnosis | src=L31-L42
+@@TOPIC_PLAN | axis=2 | id=5 | title=العلاج | en=Management | src=L43-L54
+@@TOPIC_PLAN | axis=2 | id=6 | title=المضاعفات | en=Complications | src=L55-L60
+@@LINK_PLAN | from=5 | to=2 | why=العلاج مبني على فهم آلية التورّم
+@@STRUCT | topic=3 | block=table | note=جدول مقارنة بين الأسباب الأولية والثانوية
+@@PLAN_END
+الخطة جاهزة. هبدأ الكتابة.
+@@AXIS_START | id=1 | title=الأساس والآلية | en=Basics and Mechanism | kind=basic | src=L1-L30
+@@AXIS_INTRO | في المحور ده هنفهم النيفروتك من الجذور: إيه اللي بيتعطّل في الـ glomerulus، وليه ده بيطلّع الأعراض الأربعة المشهورة.
+@@WARMUP | لو الكلية بتسرّب بروتين، إيه اللي هيحصل لضغط الـ oncotic في الدم؟ | هيقلّ، وده أصل التورّم.
+@@WARMUP | الـ albumin بيتصنّع فين؟ | في الكبد.
+@@TOPIC_START | id=1 | axis=1 | title=تعريف النيفروتك | en=Definition | src=L1-L10
+@@H2 | يعني إيه نيفروتك؟
+@@P | النيفروتك **متلازمة** مش مرض لوحده؛ هي مجموعة علامات بتحصل لما الـ glomerular filtration barrier يتعطّل فيسرّب بروتين كتير. الـ proteinuria هنا أكتر من 3.5 g/day عند الكبار.
+@@NUM | بروتينيوريا كبيرة (أكتر من 3.5 g/day عند الكبار) [إضافة]
+@@NUM | هبوط الـ serum albumin (أقل من 3 g/dL تقريباً)
+@@NUM | تورّم (edema) ممكن يوصل لتجمّع سوائل في البطن والصدر
+@@NUM | ارتفاع الدهون (hyperlipidemia) وغالباً بيظهر lipiduria
+@@DEF | Nephrotic Syndrome | متلازمة النيفروتك | مجموعة علامات سببها فقد بروتين كبير في البول مع هبوط الـ albumin وتورّم وارتفاع دهون. | زي مصفاة قهوة اتوسّعت خروقها، فالحاجات الكبيرة بتعدّي.
+@@DEF | Glomerulus | الكُبَيبة | وحدة الترشيح الأساسية في الكلية، فيها شعيرات دموية وغشاء ترشيح. |
+@@KEY | التعريف مش بيعتمد على سبب معيّن: أي مرض يخرّب الـ filtration barrier ممكن يطلّع نيفروتك.
+@@EMPH | الدكتور شدد: الفرق بين nephrotic و nephritic لازم يتحفظ، لأن العلاج والمتابعة مختلفين.
+@@MNEMO | PHEH | P=Proteinuria; H=Hypoalbuminemia; E=Edema; H=Hyperlipidemia [إضافة]
+@@NOTE | الأرقام دي معايير شائعة، وبتختلف شوية بين الأطفال والكبار. | الدكتور قال نراجع الكتاب المقرر.
+@@UNCLEAR | L8 | الدكتور ذكر رقم عن الأطفال والتسجيل مش واضح [؟]
+@@SUMMARY
+@@BUL | النيفروتك متلازمة مش مرض
+@@BUL | أربع علامات: بروتين، albumin واطي، تورّم، دهون عالية
+@@BUL | السبب ممكن يكون أولي أو ثانوي
+@@TOPIC_END | id=1 | DONE
+@@CHECKPOINT | topic=1 | axis=1 | last_src=L10 | next_topic=2 | next_src=L11
+@@TOPIC_START | id=2 | axis=1 | title=ليه التورّم بيحصل | en=Edema Mechanism | src=L11-L20
+@@H2 | الآلية خطوة بخطوة
+@@WHY | ليه المريض بيتورّم؟ | تسريب بروتين في البول → هبوط الـ albumin في الدم → نقص الضغط الأوسموزي (oncotic) → خروج سوائل للأنسجة → edema
+@@WHY | ليه الدهون بتعلى؟ | هبوط الـ albumin ← الكبد بيزوّد تصنيع البروتينات ← زيادة تصنيع الـ lipoproteins ← hyperlipidemia
+@@FLOW | تلف الـ podocytes → تسريب بروتين → هبوط الـ albumin → تورّم
+@@FLOW | توقف تسريب البروتين ← الـ albumin يرجع يعلى ← التورّم يخف
+@@P | في الأطفال، الـ minimal change disease أشهر سبب، وبتستجيب غالباً للـ steroids. الـ proteinuria ← نقص الـ albumin ← oncotic pressure أقل، والتسلسل ده هو أصل الأعراض.
+@@P | الـ ratio **UPCR** بيتحسب كده: protein / creatinine | وده بيدّي تقدير للفقد اليومي من عيّنة واحدة.
+@@CLIN | مريض عنده 8 سنين جاي بتورّم في الوش الصبح وبعدين في الرجلين. تحليل البول فيه 4+ protein، والـ albumin في الدم 2.1 g/dL.
+@@PEARL | التورّم الصباحي حوالين العينين في الطفل نمط كلاسيكي للنيفروتك، فاسأل عن لون البول وكمية البول.
+@@WARN | ⚠️ 🚨 المريض اللي عنده تورّم شديد وبيقلّ بوله لازم يتقيّم بسرعة للـ AKI.
+@@LINK | 1 | الأرقام المعيارية للتعريف مذكورة في الموضوع الأول
+@@LINK | 99 | موضوع مش موجود
+@@SUMMARY
+@@BUL | الـ albumin الواطي ← oncotic pressure أقل ← تورّم
+@@BUL | الكبد بيعوّض بزيادة الدهون
+@@TOPIC_END | id=2 | DONE
+@@CHECKPOINT | topic=2 | axis=1 | last_src=L20 | next_topic=3 | next_src=L21
+@@CONTINUE | next=topic:3 | next_src=L21
+@@TOPIC_START | id=3 | axis=1 | title=الأسباب والتصنيف | en=Causes | src=L21-L30
+@@H2 | أولي وثانوي
+@@TABLE_START | مقارنة الأسباب الأولية والثانوية | type=compare
+@@TR | النوع | أمثلة | ملاحظة
+@@TR | أولي (Primary) | Minimal change disease, FSGS, Membranous nephropathy | الأشهر في الأطفال: MCD
+@@TR | ثانوي (Secondary) | Diabetic nephropathy, SLE, Amyloidosis
+@@TR | أدوية | NSAIDs وبعض الأدوية الأخرى | نادر | سطر فيه خلية زيادة
+@@TABLE_END
+@@TABLE_START | تشخيص تفريقي للتورّم | type=ddx
+@@TR | السبب | بروتين في البول | Albumin | ملاحظة
+@@TR | Nephrotic syndrome | عالي جداً | واطي | تورّم + دهون
+@@TR | Heart failure | قليل | طبيعي | JVP عالي
+@@TR | Cirrhosis | قليل | واطي | علامات كبد
+@@TABLE_END
+@@TABLE_START | قيم مهمة | type=values
+@@TR | المقياس | القيمة المرجعية للنيفروتك
+@@TR | البروتين في البول | 3.5 g/day أو أكتر
+@@TR | Serum albumin | أقل من 3 g/dL
+@@TABLE_END
+@@TABLE_START | تصنيف سريع | type=classify
+@@TR | الفئة | مثال
+@@TR | Glomerular primary | MCD, FSGS
+@@TR | Systemic | SLE, DM
+@@TABLE_END
+@@DRUG | Prednisolone | Corticosteroid | Minimal change disease في الأطفال وبعض أسباب النيفروتك | الجرعة بتتحدد حسب الوزن والبروتوكول [راجع المرجع] | بيقلّل الالتهاب ويثبّط المناعة | عدوى نشطة غير معالجة | ارتفاع السكر، ضغط، تأثير على العظام
+@@EXTRA | بعض الإرشادات الدولية بتفرّق في خطة العلاج حسب نوع الإصابة في الـ biopsy [راجع المرجع]
+@@SUMMARY
+@@BUL | الأسباب إما أولية أو ثانوية
+@@BUL | MCD أشهر سبب في الأطفال
+@@TOPIC_END | id=3 | DONE
+@@CHECKPOINT | topic=3 | axis=1 | last_src=L30 | next_topic=wrap | next_src=L1
+@@WRAP_START | axis=1
+@@AXIS_SUMMARY | المحور الأول بيشرح إن النيفروتك فقد بروتين بيؤدي لسلسلة: albumin واطي ثم تورّم ثم دهون.
+@@BIGPIC | المشكلة في الـ filtration barrier، والأعراض كلها نتيجة فقد الـ albumin.
+@@HY | النيفروتك = بروتين + albumin واطي + تورّم + دهون
+@@HY | MCD أشهر سبب عند الأطفال
+@@HY | التورّم أصله هبوط الـ oncotic pressure
+@@WRAP_END | axis=1 | DONE
+@@CASEQ_START | id=1 | axis=1 | level=medium | tests=الآلية والتعريف
+@@CASE_STEM | طفل عنده 6 سنين جه بتورّم في الوش وبول رغوي، والـ BP طبيعي. تحليل البول بيبيّن بروتين 4+، والـ albumin 2 g/dL.
+@@CASE_Q | إيه التشخيص الأقرب؟
+@@CASE_A | Nephrotic syndrome، والأرجح minimal change disease بسبب السن.
+@@CASE_Q | فسّر سبب التورّم.
+@@CASE_A | فقد الـ albumin في البول بيقلّل الـ oncotic pressure فالسوائل بتطلع للأنسجة.
+@@CASE_PEARL | الطفل المتورّم من غير ضغط عالي ولا دم في البول غالباً MCD.
+@@CASEQ_END | id=1 | DONE
+@@AXIS_START | id=2 | title=التشخيص والعلاج | en=Diagnosis and Management | kind=management | src=L31-L60
+@@AXIS_INTRO | في المحور ده هنتعلّم نشخّص النيفروتك ونعالجه ونراقب مضاعفاته.
+@@WARMUP | أول تحليل بنطلبه لمريض متورّم؟ | تحليل بول عام وقياس البروتين في البول.
+@@TOPIC_START | id=4 | axis=2 | title=التشخيص | en=Diagnosis | src=L31-L42
+@@P | بنبدأ بتحليل البول (urinalysis) وقياس الـ UPCR، وبعدين بنقيس الـ serum albumin والـ lipid profile ووظائف الكلى.
+@@BUL | تحليل بول: protein كبير
+@@BUL | Serum albumin واطي
+@@BUL | Lipid profile: cholesterol عالي
+@@FLOW | تورّم → تحليل بول → قياس UPCR → ظبط التشخيص
+@@RED | 🚨 لو في بول دموي ووظائف كلى بتسوء بسرعة، فكّر في nephritic أو AKI وماتأخرش في التحويل.
+@@LINK | 2 | راجع آلية التورّم قبل تفسير نتائج الـ albumin
+@@SUMMARY
+@@BUL | تحليل بول + UPCR + albumin + lipids
+@@TOPIC_END | id=4 | DONE
+@@CHECKPOINT | topic=4 | axis=2 | last_src=L42 | next_topic=5 | next_src=L43
+@@TOPIC_START | id=5 | axis=2 | title=العلاج | en=Management | src=L43-L54
+@@H2 | العلاج الداعم
+@@BUL | تقليل الملح في الأكل
+@@BUL | ACE inhibitors أو ARBs لتقليل البروتين في البول
+@@BUL | Statins لو الدهون عالية
+@@H2 | علاج التورّم
+@@DRUG | Furosemide | Loop diuretic | التورّم في النيفروتك | 20-80 mg عن طريق الفم مرة أو مرتين يومياً حسب الاستجابة [راجع المرجع] | بيثبّط Na-K-2Cl في الجزء الصاعد السميك من الـ loop of Henle | عدم وجود بول، نقص حجم الدم الشديد | هبوط البوتاسيوم، تأثير على السمع بجرعات عالية، تداخل مع aminoglycosides
+@@NOTE | الجرعات هنا للتوضيح بس، ولازم تتراجع من المرجع قبل الاستخدام.
+@@SUMMARY
+@@BUL | العلاج الداعم + دواء حسب السبب
+@@BUL | لازم متابعة الكلى والـ electrolytes
+@@TOPIC_END | id=5 | DONE
+@@CHECKPOINT | topic=5 | axis=2 | last_src=L54 | next_topic=6 | next_src=L55
+@@TOPIC_START | id=6 | axis=2 | title=المضاعفات | en=Complications | src=L55-L60
+@@P | أخطر مضاعفات النيفروتك العدوى والجلطات (thromboembolism) وفشل الكلى الحاد، وكمان non-ST elevation myocardial infarction نادراً مع الدهون العالية.
+@@WARN | فقد بروتينات مضادة للتجلّط ممكن يرفع خطر renal vein thrombosis.
+@@PEARL | ألم الجنب المفاجئ أو دم في البول مع نيفروتك لازم يفكّرك في جلطة بالكلى.
+@@SUMMARY
+@@BUL | عدوى، جلطات، AKI
+@@TOPIC_END | id=6 | DONE
+@@CHECKPOINT | topic=6 | axis=2 | last_src=L60 | next_topic=wrap | next_src=L31
+@@WRAP_START | axis=2
+@@AXIS_SUMMARY | التشخيص بيبدأ ببول وUPCR وalbumin، والعلاج داعم وبيستهدف السبب، والمضاعفات لازم تتراقب.
+@@BIGPIC | تشخيص + علاج + متابعة مضاعفات = إدارة متكاملة للنيفروتك.
+@@HY | أول خطوة: تحليل بول + UPCR
+@@HY | ACEi/ARB لتقليل البروتين
+@@WRAP_END | axis=2 | DONE
+@@CASEQ_START | id=1 | axis=2 | level=hard | tests=التشخيص والعلاج
+@@CASE_STEM | رجل عنده 45 سنة، سكري من 15 سنة، جاي بتورّم في الرجلين. UPCR عالي وال albumin 2.4 g/dL.
+@@CASE_Q | إيه السبب الأرجح؟
+@@CASE_A | Diabetic nephropathy يفكّر فيها مع الخلفية السكرية.
+@@CASE_Q | إيه العلاج الداعم الأساسي؟
+@@CASE_A | ACEi أو ARB، تقليل الملح، ومدر بول حسب الحالة.
+@@CASE_PEARL | في مريض السكري المتورّم والبروتين عالي، فكّر في diabetic nephropathy بس استبعد الأسباب التانية.
+@@CASEQ_END | id=1 | DONE
+@@HIGHYIELD_START
+@@HY | النيفروتك = بروتين > 3.5 g/day + albumin واطي + تورّم + دهون
+@@HY | MCD أشهر سبب في الأطفال وبيستجيب للـ steroids
+@@HY | العلاج الداعم: ملح أقل + ACEi/ARB + مدر بول + statin
+@@HY | أخطر مضاعفات: عدوى + جلطات + AKI
+@@HIGHYIELD_END
+@@BIGPICTURE | النيفروتك = تسريب بروتين من الكُبَيبة ← albumin واطي ← تورّم ودهون؛ والتشخيص والعلاج بيبدأوا من فهم الآلية.
+@@COVERAGE | topic=1 | src=L1-L10 | status=ok
+@@FINAL | axes=2 | topics=6 | cases=2 | src_covered=L1-L60 | unclear=1

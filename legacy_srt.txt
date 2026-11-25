@@ -1,0 +1,36 @@
+@@PLAN_START
+@@LECTURE | number=3 | title=Heart Failure | doctor=د. منى | course=باطنة | level=سنة 4 | goal=امتحان
+@@TOPIC_PLAN | id=1 | title=التعريف | en=Definition | srt=1-20 | time=00:00:00-00:05:00 | est_pages=2
+@@TOPIC_PLAN | id=2 | title=الأعراض | en=Symptoms | srt=21-40 | time=00:05:00-00:10:00 | est_pages=2
+@@DICT | قصور القلب ← Heart failure
+@@PLAN_END
+@@TOPIC_START | id=1 | title=التعريف | en=Definition | srt=1-20 | time=00:00:00-00:05:00
+@@H2 | يعني إيه قصور القلب؟
+@@P | قصور القلب حالة القلب فيها مش قادر يضخ دم كفاية لاحتياج الجسم، والـ ejection fraction بيقلّ.
+@@BUL | ضيق نفس
+@@BUL | تورّم في الرجلين
+@@DEF | Heart failure | عدم قدرة القلب على ضخ الدم بشكل كاف.
+@@KEY | الـ EF أقل من 40% في HFrEF.
+@@MNEMO | FACES | F=Fatigue; A=Activity limitation; C=Congestion; E=Edema; S=Shortness of breath
+@@FLOW | ضعف الضخ → احتباس سوائل → تورّم
+@@TABLE_START | مقارنة | type=compare
+@@TR | النوع | EF | العلاج
+@@TR | HFrEF | أقل من 40% | ACEi + beta blocker
+@@TR | HFpEF | طبيعي | مدر بول
+@@TABLE_END
+@@SUMMARY
+- القلب مش بيضخ كفاية
+- الأعراض بسبب الاحتقان
+@@TOPIC_END | id=1 | DONE
+@@TOPIC_START | id=2 | title=الأعراض | en=Symptoms | srt=21-40 | time=00:05:00-00:10:00
+@@P | الأعراض الأساسية ضيق النفس والإرهاق والتورّم.
+@@WARN | ضيق النفس المفاجئ في الليل علامة خطر.
+@@SUMMARY
+- أعراض احتقان
+@@TOPIC_END | id=2 | DONE
+@@AUDIO | 00:07:12 | جملة غير واضحة | فيها pipe
+@@HIGHYIELD_START
+@@HY | EF أقل من 40% = HFrEF
+@@HY | ضيق النفس أهم عرض
+@@HIGHYIELD_END
+@@FINAL | topics=2
