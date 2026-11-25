@@ -61,8 +61,9 @@ class Config:
     gemini_max_out: int = field(default_factory=lambda: _int('GEMINI_MAX_OUT', 65536))
 
     data_dir: str = field(default_factory=lambda: os.environ.get('DATA_DIR', os.path.join(HERE, 'data')))
-    work_dir: str = field(default_factory=lambda: os.environ.get('WORK_DIR', '/tmp/tgbot_work'))
-    fonts_dir: str = field(default_factory=lambda: os.environ.get('FONTS_DIR', os.path.join(HERE, 'fonts')))
+    work_dir: str = field(default_factory=lambda: os.environ.get('WORK_DIR', '/tmp/4golden_work'))
+    fonts_dir: str = field(default_factory=lambda: os.environ.get('FONTS_DIR') or (
+        os.path.join(HERE, 'fonts') if os.path.isdir(os.path.join(HERE, 'fonts')) else HERE))   # الخطوط جنب الكود لو مفيش fonts/
 
     # ليميتات Groq (الـ free tier) - عدلها لو Groq غيّرتها
     groq_ash: int = field(default_factory=lambda: _int('GROQ_ASH', 7200))      # ثواني صوت في الساعة

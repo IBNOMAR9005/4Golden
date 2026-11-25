@@ -10,8 +10,20 @@ from gemini_client import GeminiPool, GeminiError
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
+def prompt_path(name):
+    """يدوّر على البرومبت في prompts/ الأول وبعدين جنب الكود (الريبو بتاع 4Golden حاطط الملفات في الروت)."""
+    for d in (os.path.join(HERE, 'prompts'), HERE):
+        p = os.path.join(d, name)
+        if os.path.isfile(p):
+            return p
+    return None
+
+
 def read_prompt(name):
-    with open(os.path.join(HERE, 'prompts', name), encoding='utf-8') as f:
+    p = prompt_path(name)
+    if not p:
+        raise GeminiError('البرومبت %s مش موجود (لا في prompts/ ولا جنب الكود).' % name)
+    with open(p, encoding='utf-8') as f:
         return f.read()
 
 
@@ -145,7 +157,9 @@ async def make_topics(app, cues, duration, status):
     if app.gem_n is not app.gem_t and set(app.gem_n.labels.values()) - set(app.gem_t.labels.values()):
         pools.append(app.gem_n)
     transcript = subs.compact_transcript(cues)
-    head = 'Lecture duration: %s\nNumber of transcript lines: %d\n\nTRANSCRIPT:\n' % (subs.hms(duration), len(cues))
+    n_top = max(3, min(8, int(round(duration / 60.0 / 12.0))))
+    head = ('Lecture duration: %s\nNumber of transcript lines: %d\nTARGET SIZE: about %d main topics, 2-5 sub-topics each, '
+            'at most 32 sub-topics in total.\n\nTRANSCRIPT:\n') % (subs.hms(duration), len(cues), n_top)
     sysm = read_prompt('topics.txt')
 
     async def on_wait(sec):
@@ -186,8 +200,7 @@ async def make_topics(app, cues, duration, status):
             rv = read_prompt('topics_review.txt')
             user = head + transcript + '\n\nDRAFT INDEX (JSON):\n' + json.dumps(draft, ensure_ascii=False)
             reviewed = await call(rv, user, max_wait=90)
-            if len(reviewed.get('sections', [])) and sum(len(s.get('items', [])) for s in reviewed['sections']) >= \
-                    0.8 * sum(len(s.get('items', [])) for s in draft.get('sections', [])):
+            if len(reviewed.get('sections', [])) and sum(len(s.get('items', [])) for s in reviewed['sections']) >= 3:
                 final = reviewed
         except (GeminiError, aiohttp.ClientError, asyncio.TimeoutError) as e:
             app.log('topics review skipped: %r' % e)
@@ -241,9 +254,8 @@ async def make_pdf_lecture(app, md_text, meta_text, outdir, status, job_id=None,
     """lecture .md ← أسطر مرقّمة ← Gemini (وحدات + استكمال + إصلاح) ← PDF."""
     cfg = app.cfg
     os.makedirs(outdir, exist_ok=True)
-    path = os.path.join(HERE, 'prompts', LECTURE_PROMPT)
-    if not os.path.exists(path):
-        raise GeminiError('برومبت المنتج prompts/%s مش موجود؛ ضيفه وبعدين جرّب تاني.' % LECTURE_PROMPT)
+    if not prompt_path(LECTURE_PROMPT):
+        raise GeminiError('برومبت المنتج %s مش موجود (لا في prompts/ ولا جنب الكود)؛ ضيفه وبعدين جرّب تاني.' % LECTURE_PROMPT)
     system = read_prompt(LECTURE_PROMPT)
     state, saved_lines = (app.store.load_job(job_id) if (resume and job_id) else (None, None))
     if state and saved_lines:                      # R-66: نفس الترقيم بعد الاستئناف

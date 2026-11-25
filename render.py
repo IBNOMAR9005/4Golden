@@ -99,47 +99,70 @@ def stats(sections):
     return len(sections), sum(len(s['items']) for s in sections)
 
 
-def _block(n, sec, items=None, cont=False, k0=0):
-    items = sec['items'] if items is None else items
-    head = '%s <b>%s. %s</b>%s' % (sec['emoji'], n, html.escape(sec['title']), ' …' if cont else '')
-    lines = ['<blockquote>%s</blockquote>' % head]
-    for k, (t, label, key) in enumerate(items, k0 + 1):
+MAX_TOPICS = 9
+MAX_LINES = 40
+MSG_LIMIT = 3900      # حد تليجرام 4096؛ سايبين هامش
+
+
+def tfmt(sec):
+    """صيغة بيتعرّف عليها تليجرام كتوقيت قابل للضغط: MM:SS تحت الساعة، و H:MM:SS فوقها (من غير <code> عشان ما يبقاش نسخ)."""
+    sec = max(0, int(round(float(sec))))
+    h, r = divmod(sec, 3600)
+    m, s = divmod(r, 60)
+    return '%d:%02d:%02d' % (h, m, s) if h else '%02d:%02d' % (m, s)
+
+
+def _block(sec):
+    lines = ['<blockquote>%s <b>%s</b></blockquote>' % (sec['emoji'], html.escape(sec['title']))]
+    for t, label, key in sec['items']:
         lab = html.escape(label)
-        lines.append('<b>%d.%d</b>  <code>%s</code> ▸ %s' % (n, k, hms(t), ('⭐ <b>%s</b>' % lab) if key else lab))
+        lines.append('%s ▸ %s' % (tfmt(t), ('⭐ <b>%s</b>' % lab) if key else lab))
     return '\n'.join(lines)
 
 
-def render_messages(title, sections, duration, limit=3500):
+def _compose(title, sections, duration):
     n_sec, n_items = stats(sections)
-    head = '<b>🕒 Topics &amp; Timestamps</b>'
-    if title:
-        head += '\n<i>%s</i>' % html.escape(title)
-    head += '\n<i>⏱ %s  ·  %d topics  ·  %d timestamps</i>' % (hms(duration), n_sec, n_items)
-    blocks = []
-    for i, sec in enumerate(sections, 1):
-        b = _block(i, sec)
-        if len(b) <= limit - 200:
-            blocks.append(b)
-            continue
-        # قسم ضخم: قسّمه لأجزاء
-        part, size, first, k0 = [], 0, True, 0
-        for it in sec['items']:
-            line_len = len(it[1]) + 70
-            if part and size + line_len > limit - 400:
-                blocks.append(_block(i, sec, part, cont=not first, k0=k0))
-                k0 += len(part)
-                part, size, first = [], 0, False
-            part.append(it)
-            size += line_len
-        if part:
-            blocks.append(_block(i, sec, part, cont=not first, k0=k0))
-    msgs, cur = [], head
-    for b in blocks:
-        if len(cur) + len(b) + 2 > limit:
-            msgs.append(cur)
-            cur = b
-        else:
-            cur += '\n\n' + b
-    if cur:
-        msgs.append(cur)
-    return msgs
+    head = '🎓 <b>%s</b>' % html.escape(title) if title else '🎓 <b>Lecture Index</b>'
+    head += '\n<i>⏱ %s  ·  %d topics  ·  tap any time to jump</i>' % (tfmt(duration), n_sec)
+    return head + '\n\n' + '\n\n'.join(_block(s) for s in sections)
+
+
+def _shrink(sections, limit):
+    """يصغّر الفهرس لحد ما يدخل في رسالة واحدة: يشيل أضعف عناصر مش مهمة (مش ⭐) من أكبر قسم."""
+    secs = [dict(s, items=list(s['items'])) for s in sections]
+    # حد أقصى للعدد الكلي
+    while sum(len(s['items']) for s in secs) > MAX_LINES:
+        if not _drop_one(secs, min_keep=2):
+            break
+    return secs
+
+
+def _drop_one(secs, min_keep=1):
+    cands = [(len(s['items']), i) for i, s in enumerate(secs) if len(s['items']) > min_keep]
+    if not cands:
+        return False
+    _, i = max(cands)
+    items = secs[i]['items']
+    non_key = [k for k, it in enumerate(items) if not it[2]]
+    # لو كله ⭐ شيل أي واحد من النص، غير كده شيل غير المهم من النص
+    pool = non_key or list(range(len(items)))
+    pool = [k for k in pool if 0 < k < len(items) - 1] or pool
+    items.pop(pool[len(pool) // 2])
+    return True
+
+
+def render_messages(title, sections, duration, limit=MSG_LIMIT):
+    """بيرجّع قايمة فيها رسالة واحدة (لازم تتبعت كـ reply على الملف الصوتي/الفيديو عشان التوقيتات تبقى قابلة للضغط)."""
+    secs = sections[:MAX_TOPICS]
+    secs = _shrink(secs, limit)
+    msg = _compose(title, secs, duration)
+    guard = 0
+    while len(msg) > limit and guard < 200:
+        guard += 1
+        if not _drop_one(secs, 1):
+            if len(secs) > 1:
+                secs.pop()          # آخر حاجة: شيل آخر قسم
+            else:
+                break
+        msg = _compose(title, secs, duration)
+    return [msg[:4096]]
