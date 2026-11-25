@@ -26,7 +26,7 @@ UNIT_END = {'TOPIC_END': 'topic', 'WRAP_END': 'wrap', 'CASEQ_END': 'case'}
 TABLE_TYPES = ('compare', 'classify', 'values', 'ddx')
 
 # بلوكات نصية: سطر عادي بعدها = استكمال (R-15). الزيادة عن الـ spec: BUL/NUM/CASE_PEARL (توثيق في CHANGELOG)
-CONT_KINDS = {'P', 'KEY', 'EMPH', 'WARN', 'RED', 'PEARL', 'CLIN', 'NOTE', 'EXTRA',
+CONT_KINDS = {'P', 'KEY', 'EMPH', 'WARN', 'RED', 'PEARL', 'CLIN', 'NOTE', 'EXTRA', 'ANALOGY',
               'CASE_STEM', 'CASE_A', 'CASE_Q', 'BUL', 'NUM', 'CASE_PEARL'}
 
 # ════════════════════════════════════════════════════════════════════
@@ -123,7 +123,7 @@ SPECS: Dict[str, dict] = {
     'FLOW': _T(),
     'DRUG': _spec(pos=('name_en', 'class', 'indication', 'dose', 'mechanism', 'contraindications',
                        'adverse_interactions'), req=('name_en',)),
-    'EXTRA': _T(),
+    'EXTRA': _T(), 'ANALOGY': _T(),
     'UNCLEAR': _spec(pos=('line_ref', 'text'), req=('text',)),
     'AUDIO': _spec(pos=('line_ref', 'text'), req=('text',)),           # legacy → UNCLEAR
     'TABLE_START': _spec(pos=('title',), keys=frozenset({'type'})),
@@ -134,7 +134,7 @@ SPECS: Dict[str, dict] = {
 }
 
 TOPIC_BLOCKS = {'H2', 'P', 'BUL', 'NUM', 'DEF', 'KEY', 'EMPH', 'WHY', 'LINK', 'WARN', 'RED', 'PEARL', 'CLIN',
-                'NOTE', 'MNEMO', 'FLOW', 'DRUG', 'EXTRA', 'UNCLEAR', 'AUDIO', 'TABLE_START', 'TR', 'TABLE_END',
+                'NOTE', 'MNEMO', 'FLOW', 'DRUG', 'EXTRA', 'ANALOGY', 'UNCLEAR', 'AUDIO', 'TABLE_START', 'TR', 'TABLE_END',
                 'SUMMARY'}
 SHARED_BLOCKS = {'H2', 'P', 'BUL', 'NUM', 'KEY', 'NOTE', 'WARN', 'UNCLEAR', 'AUDIO'}
 WRAP_ONLY = {'AXIS_SUMMARY', 'BIGPIC', 'HY'}
@@ -791,7 +791,7 @@ class _Parser:
     def __getattr__(self, attr):
         if attr.startswith('_m_'):
             nm = attr[3:].upper()
-            if nm in ('P', 'KEY', 'EMPH', 'WARN', 'RED', 'PEARL', 'CLIN', 'NOTE', 'EXTRA', 'H2'):
+            if nm in ('P', 'KEY', 'EMPH', 'WARN', 'RED', 'PEARL', 'CLIN', 'NOTE', 'EXTRA', 'ANALOGY', 'H2'):
                 return self._simple(nm)
         raise AttributeError(attr)
 
@@ -1263,8 +1263,8 @@ def validate(pr: ParseResult, total_lines: int = 0, mode: str = 'lenient') -> Tu
         if ax.implicit:
             continue
         nt = sum(1 for u in ax.units if isinstance(u, Topic))
-        if nt and not 5 <= nt <= 15:
-            warns.append('المحور %d فيه %d موضوع (المتوقع 5..15) — للعلم' % (ax.id, nt))
+        if nt and not 2 <= nt <= 15:
+            warns.append('المحور %d فيه %d موضوع (المتوقع 2..15) — للعلم' % (ax.id, nt))
         if not any(isinstance(u, Wrap) for u in ax.units):
             warns.append('المحور %d من غير ملخص (WRAP)' % ax.id)
         if not any(isinstance(u, Case) for u in ax.units):
