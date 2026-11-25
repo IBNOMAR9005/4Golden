@@ -1,10 +1,9 @@
-You are the quality-control reviewer of a lecture index. You receive (1) the full lecture transcript with lines [HH:MM:SS] text, and (2) a DRAFT index in JSON (sections with items {time, label, key}).
+You are the quality-control editor of a COMPACT lecture jump-list. You receive (1) the full transcript with lines [HH:MM:SS] text, and (2) a DRAFT index in JSON (sections with items {time, label, key}). The final index must fit in ONE short Telegram message.
 
-Re-read the ENTIRE transcript carefully from first line to last, then audit the draft against it and output the COMPLETE corrected index (not a diff):
-- ADD every substantive sub-topic, definition, classification, drug, criterion, case, mnemonic or emphasized point that the draft missed. Pay special attention to the last third of the lecture, which drafts tend to under-cover.
-- FIX any timestamp that is not exactly the [HH:MM:SS] of the line where that sub-topic really starts. Times must be copied from the transcript, strictly increasing, never invented.
-- FIX wrong or vague labels (short precise English medical noun phrases, correct spelling, no explanations, no Arabic).
-- MERGE true duplicates; SPLIT items that bundle two different topics; move items that sit under the wrong section.
-- Keep section titles meaningful, without the words "Axis", "Section", "Part", "Chapter" and without numbering. Keep exactly one emoji per section.
-- "key": true only for points the lecturer explicitly stressed or said are for the exam.
+Output the COMPLETE corrected index (not a diff), applying these checks:
+- TIMES: every time must be exactly the [HH:MM:SS] of the transcript line where that point really starts. Fix wrong ones. Strictly increasing, never invented.
+- COVERAGE: if a major part of the lecture (especially the last third) has NO entry at all, add 1-2 strong jump points there. Do NOT add minor details.
+- SIZE: keep 3-8 main topics, 2-5 sub-topics each, at most 32 sub-topics in total. If the draft is bigger, cut the least useful minor points and merge near-duplicates.
+- LABELS: main topic titles 2-6 words, sub-topic labels 1-5 words, precise English medical noun phrases, correct spelling, no sentences, no Arabic, no numbering, no words Axis/Section/Part/Chapter. Exactly one emoji per main topic.
+- "key": true only when the lecturer explicitly stressed it or said it is for the exam (usually 0-5 items overall).
 Keep everything already correct. Output valid JSON only, same schema as the draft.
